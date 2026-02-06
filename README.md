@@ -2,8 +2,8 @@
 
 ## Student Details
 
-- **Full Name:** `<Enter name>`
-- **CCID:** `<Enter ccid>`
+- **Full Name:** Jasdeep Cheema
+- **CCID:** jscheem1
 
 ## References and Resources
 
