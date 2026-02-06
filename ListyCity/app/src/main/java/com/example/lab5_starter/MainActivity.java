@@ -46,25 +46,7 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
             return insets;
         });
 
-        db = FirebaseFirestore.getInstance();
-        citiesRef = db.collection("Cities");
 
-        citiesRef.addSnapshotListener((value, error) -> {
-            if (error != null){
-                Log.e("Firestore", error.toString());
-            }
-            if (value != null && !value.isEmpty()){
-                cityArrayList.clear();
-                for (QueryDocumentSnapshot snapshot :  value){
-                    String name = snapshot.getString("name");
-                    String province = snapshot.getString("province");
-
-                    cityArrayList.add(new City(name, province));
-                }
-                cityArrayAdapter.notifyDataSetChanged();
-            }
-
-        });
 
         // Set views
         addCityButton = findViewById(R.id.buttonAddCity);
@@ -86,6 +68,26 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
             City city = cityArrayAdapter.getItem(i);
             CityDialogFragment cityDialogFragment = CityDialogFragment.newInstance(city);
             cityDialogFragment.show(getSupportFragmentManager(),"City Details");
+        });
+
+        db = FirebaseFirestore.getInstance();
+        citiesRef = db.collection("Cities");
+
+        citiesRef.addSnapshotListener((value, error) -> {
+            if (error != null){
+                Log.e("Firestore", error.toString());
+            }
+            if (value != null && !value.isEmpty()){
+                cityArrayList.clear();
+                for (QueryDocumentSnapshot snapshot :  value){
+                    String name = snapshot.getString("name");
+                    String province = snapshot.getString("province");
+
+                    cityArrayList.add(new City(name, province));
+                }
+                cityArrayAdapter.notifyDataSetChanged();
+            }
+
         });
 
     }
